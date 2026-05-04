@@ -9,8 +9,19 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+//rutas
+const productoRoutes = require("./routes/producto.routes");
+const carritoRoutes = require("./routes/carrito.routes");
 
-// 🔥 prueba real de conexión
+app.use("/productos", productoRoutes);
+app.use("/carrito", carritoRoutes);
+
+
+// ruta de prueba
+app.get("/health", (req, res) => {
+  res.json({ status: "ok" });
+});
+
 app.get("/db-test", async (req, res) => {
   try {
     const result = await pool.query("SELECT NOW()");
@@ -21,10 +32,7 @@ app.get("/db-test", async (req, res) => {
   }
 });
 
-// ruta de prueba
-app.get("/health", (req, res) => {
-  res.json({ status: "ok" });
-});
+
 
 // puerto
 const PORT = process.env.PORT || 4000;
@@ -34,11 +42,3 @@ app.listen(PORT, () => {
 });
 
 
-//Ruta de productos
-const productoRoutes = require("./routes/producto.routes");
-
-app.use("/productos", productoRoutes);
-
-//Ruta de carrito
-const carritoRoutes = require("./routes/carrito.routes");
-app.use("/carrito", carritoRoutes);
