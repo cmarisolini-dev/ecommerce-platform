@@ -6,7 +6,7 @@ function App() {
   const [carrito, setCarrito] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:4000/productos")
+    fetch("https://ecommerce-platform-gw0x.onrender.com")
       .then(res => res.json())
       .then(data => setProductos(data));
   }, []);
